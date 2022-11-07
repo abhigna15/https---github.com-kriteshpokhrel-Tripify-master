@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<header>
+  <!-- navbar starts here-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-static-top navbar-inverse">
+    <div class="container-fluid">
+      <a class="navbar-brand h2" href="#">BookMyFlight</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" *ngIf="isLoggedin()" aria-current="page" routerLink="viewbookings">My Bookings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
+          </li>
+          <!--dropdown starts-->
+
+          <!--dropdown ends-->
+          <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+          </li>
+        </ul>
+        <button class="btn btn-select-lang btn-light" type="submit">English (UK) <img class="indiaflag"
+            src="https://images.skyscnr.com/images/country/flag/header/in.png" alt="IN" title="IN">₹ India
+        </button>
+        <form class="d-flex">
+          <button class="btn login" *ngIf="!isLoggedin()" (click)="onClick('/login')">Login / Sign Up</button>
+          <button class="btn login" *ngIf="isLoggedin()" (click)="logout()">Logout</button>
+        </form>
+        
+      </div>
+    </div>
+  </nav>
+  <!-- navbar ends here-->
+</header>
+
+</html>

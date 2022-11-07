@@ -1,0 +1,159 @@
+<body>
+    <div class="new1">
+        <div class="centered head">Your bookings</div>
+        <div class="container-flights">
+            <!--
+            <div class="headers">
+                <table>
+                    <tr style="display: flex; margin-right: 10%;">
+                        <td style="text-align: left;padding-left: 2%;">Source-Destination</td>
+                        <td style="text-align: left;padding-left: 2%; margin-left: 8%;">Passenger Name</td>
+                        <td style="text-align: left;padding-left: 2%;"> Age</td>
+
+                    </tr>
+                </table>
+
+            </div>
+            -->
+            <!--conncetion to api here-->
+            <div class="row" *ngFor="let booking of bookingsView; let indexOfElement=index;">
+                <div class="col-sm-3 "> <!--remove mx-5 after adding modify passengers-->
+                    <h6>Booking Id:{{booking.bookingId}}</h6>
+                    <div style="display:inline">
+                        <h4><b>{{booking.source}}&nbsp;&nbsp;<b style="font-size:30px;">→</b>
+                                {{booking.destination}}</b></h4>
+                    </div>
+                    <h5 class="my-2">{{booking.dateTime}}</h5>
+
+                    <!--
+                    <tr>
+                        <table class="nestedtable">
+                            <tr>
+                                <td class="airlines">{{booking.source}} &nbsp;&nbsp;<div style="font-size:30px;">→</div>
+                                    &nbsp;&nbsp; {{booking.destination}}</td>
+                            </tr>
+                            <tr>
+                                <td class="flight-no">{{booking.dateTime}}</td>
+                            </tr>
+                        </table>
+                        <td class="timings">{{booking.passengerName}}
+                        </td>
+                        <td>{{booking.passengerAge}}</td>
+                        add below routerLink="../booking"
+                        <button type="button" id="{{indexOfElement}}"
+                            class="book-now btn btn-primary rounded-10 justify-content-center px-4 text-center p-2">Cancel
+                            booking</button>
+                    </tr>
+                -->
+
+                </div> 
+                <div class="col-sm-6 "> <!-- remove mx-5 after modify passenger details is added and make col-sm-5-->
+                    <h6 style="margin-bottom: 1%;">Passenger(s) Details:</h6>
+                    <div *ngFor="let psngr of booking.passengers">
+                        <b style="font-size: 20px;"><span>{{psngr.name}}</span>
+                            <span style="margin-left:2%;">{{psngr.age}}</span>
+                            <span style="margin-left:2%;">{{psngr.gender}}</span>
+                           
+                        </b>
+                        <span style="margin-left:2%;">Ticket Status: {{psngr.status}}</span>
+                        <span style="margin-left:2%;">Amount paid: Rs.{{booking.passengers[0].price}}</span>
+                    
+                    </div>
+                </div> <!--make justify content center, and remove mx-3 after adding modify personal details-->
+                <div class="col-sm-2 mx-1" style="margin-top:2%;display: block; align-items: center; justify-content:center;">
+                   <!--
+                    <button (click)="expandModifyDetails(indexOfElement)"
+                        style="border: none; background-color: white; color: rgb(89, 89, 171); text-align:center;padding-top:1%; padding-right: 3%;">
+                        Modify details</button>-->
+                    <button type="button" *ngIf="!isCancelled(indexOfElement)"  (click)="cancelBooking(indexOfElement)"  class="book-now btn btn-primary rounded-10 justify-content-center px-4 text-center p-2">Cancel
+                        booking</button>
+                    <button type="button" *ngIf="isCancelled(indexOfElement)" class="book-now btn btn-danger rounded-10 justify-content-center px-4 text-center p-2" disabled>Cancelled</button>
+
+                </div>
+                <form style="margin-top: 3%; " #form="ngForm" *ngIf="expandPsngrDetails[indexOfElement]">
+                    <div class="row" style="align-items:flex-end; display:flex;" id="details[{{i}}]" *ngFor="let retPassengers of booking.passengers; let i = index;">
+                        <div class="form-group col-sm-3 mx-3">
+                            <input class="details form-control" [(ngModel)]="passengers[i].name" id="passName"
+                                name="name" type="text" placeholder="Passenger Name" required=""/>
+                        </div>
+                        <div class="form-group col-sm-1 mx-3">
+                            <input class="details age form-control" id="age" [(ngModel)]="passengers[i].age"
+                                name="age[{{i}}]" type="number" min="0" placeholder="Age" required/>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input class="form-check-input" type="radio" name="gender[{{i}}]" value=1
+                                [(ngModel)]="passengers[i].gender"> Male
+
+                            <input class="form-check-input" type="radio" name="gender[{{i}}]" value=2
+                                [(ngModel)]="passengers[i].gender"> Female
+
+                            <input class="form-check-input" type="radio" name="gender[{{i}}]" value=0
+                                [(ngModel)]="passengers[i].gender"> Others
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+            <!-- this is dummy UI of updated UI for viewing bookings
+            <div class="row" *ngFor="let booking of [1,2,3]; let indexOfElement=index;">
+                <div class="airlines">Bangalore &nbsp;&nbsp;<div style="font-size:30px;">→</div>
+                    &nbsp;&nbsp;
+                    Hyderabad</div>
+
+                <div class="flight-no">21 Oct 2022</div>
+
+                <br>
+                <p style="padding-top:3%; padding-bottom: 1%; font-size:20px">Passenger(s) Details:</p>
+
+                <div style="display:flex; margin-bottom:1%; margin-left: 2%;" *ngFor="let id of [1,2,3]">
+                    <div>Kritesh Pokhrel
+                        add below routerLink="../booking"
+                    </div>
+                    <div style="padding-left: 5%;">22</div>
+                </div>
+                <div style="display: flex;">
+                    <button type="button" id="1"
+                        class="book-now btn btn-primary rounded-10 justify-content-center px-4 text-center p-2">Cancel
+                        booking</button>
+                    <div (click)="expandModifyDetails(indexOfElement)"
+                        style="text-align:center;padding-top:1%; padding-left: 3%;">
+                        Modify passengers details</div>
+                </div>
+
+
+            </div>
+        -->
+
+        </div>
+        <!--conncetion to api here
+            <div class = "row"*ngFor = "let number of [1,2,3,4,5]">
+                <table >
+                            <tr>
+                                <table class="nestedtable">
+                                    <tr>
+                                <td  class="airlines">Indigo</td>
+                            </tr>
+                                <tr>
+                                    <td class="flight-no-mul">6E-5753</td>                                    
+                                    <td class="flight-no-mul">,6E-6890</td></tr>
+                        </table>
+                        
+                        <td class="timings">2:50 A.M. ----- 3:00 P.M.</td>
+                        <td>6 Hrs 45 mins</td>
+                        
+                        <td>1 Stop</td>
+                        <td>₹2000</td>
+                        <button type="button" routerLink="../booking" class="book-now btn btn-primary rounded-10 justify-content-center px-4 text-center p-2">Book</button>                                    
+         
+                    </tr>
+                    
+                </table>
+
+            </div>-->
+
+
+    </div>
+
+
+</body>

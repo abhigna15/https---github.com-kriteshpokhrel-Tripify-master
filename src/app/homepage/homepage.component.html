@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+
+<body style="
+background: linear-gradient(to bottom left, #000066 0%, #ffccff 100%);">
+
+    <div class="centered head">Let the journey begin</div>
+    <form #form="ngForm">
+        <div class="box">
+            <p class="top from">From</p>
+            <p class="top to">To</p>
+            <p class="top date">Date</p>
+            <p class="top cabin">Cabin Class</p>
+
+            <p class="top travellers">Travellers</p>
+
+            <!--get airports list from backend-->
+            <select [(ngModel)]="flightQuery.sourceId" class="fields from dropdown" id="source_Id" name="source_Id"
+                id="source">
+                <option value="0" disable selected>Arrival Airport</option>
+                <option value="1">Ahmedabad</option>
+                <option value="2">Bengaluru</option>
+                <option value="3">Delhi</option>
+                <option value="4">Hyderabad</option>
+                <option value="5">Kolkata</option>
+            </select>
+
+            <!--same here, add same valued from database-->
+            <select [(ngModel)]="flightQuery.destinationId" class="fields to dropdown" name="destination_Id"
+                id="destination_Id">
+                <option value="0" disable selected>Destination Airport</option>
+                <option value="1">Ahmedabad</option>
+                <option value="2">Bengaluru</option>
+                <option value="3">Delhi</option>
+                <option value="4">Hyderabad</option>
+                <option value="5">Kolkata</option>
+            </select>
+            <!--min="{{minDate}}"-->
+            <input name="sourceTime" id="sourceTime" min="{{minDate}}" [(ngModel)]="flightQuery.sourceTime" class="fields date date-field"
+            value="2013-01-08" type="date" />
+            <select class="fields cabin cabin-field">
+                <option value="economy">Economy</option>
+            </select>
+
+            <!--plus minus, see if changes are required-->
+            <button class="fields minus plusminus" (click)="handleMinus()">-</button>
+            <input type="number" min="0" max="9" name="passengersCount" id="passengersCount" class="fields num" value="1"
+                [(ngModel)]="flightQuery.passengerCount" />
+            <button class="fields plus plusminus" (click)="handlePlus()">+</button>
+            <button class="fields search-flights" (click)="searchFlights()" type="submit">Search</button>
+        </div>
+    </form>
+</body>
+
+</html>

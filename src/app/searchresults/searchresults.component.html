@@ -1,0 +1,123 @@
+<body>
+    <div class="new1">
+        <div class="container">
+            <!--add the html for top second bar here-->
+            <div class="wrapper bg-white">
+                <form action="#">
+
+                    <div class="form-group d-flex ">
+                        <div class="d-flex align-items-center flex-fill me-sm-3 my-sm-0 my-4 position-relative">
+            <!--get airports list from backend-->
+            <select [(ngModel)]="flightQuery.sourceId" class="form-select form-select-lg" id="source_Id" name="source_Id"
+                id="source">
+                <option value="0" disable selected>Arrival Airport</option>
+                <option value="1">Ahmedabad</option>
+                <option value="2">Bengaluru</option>
+                <option value="3">Delhi</option>
+                <option value="4">Hyderabad</option>
+                <option value="5">Kolkata</option>
+            </select>
+<!--                            <input type="text" required placeholder="From" class="form-control">
+                            <div class="label" id="from"></div>
+                            <span class="fas fa-dot-circle text-muted"></span>
+    -->                    </div>
+                        <div class="d-flex align-items-center flex-fill me-sm-3 my-sm-0 my-4 position-relative">
+            <!--same here, add same valued from database-->
+            <select [(ngModel)]="flightQuery.destinationId" class="form-select form-select-lg" name="destination_Id"
+                id="destination_Id">
+                <option value="0" disable selected>Destination Airport</option>
+                <option value="1">Ahmedabad</option>
+                <option value="2">Bengaluru</option>
+                <option value="3">Delhi</option>
+                <option value="4">Hyderabad</option>
+                <option value="5">Kolkata</option>
+            </select>
+            <!--                             <input type="text" required placeholder="To" class="form-control">
+                            <div class="label" id="to"></div>
+                            <span class="fas fa-map-marker text-muted"></span>-->
+                        </div>
+                        <div class="d-flex align-items-center flex-fill me-sm-1 my-sm-0  position-relative">
+                            <input type="date" name="sourceTime"[(ngModel)]="flightQuery.sourceTime" required placeholder="Depart Date" class="form-control">
+                            <div class="label" id="depart"></div>
+                        </div>
+                        <input type="text" name="passengerCount" [(ngModel)]="flightQuery.passengerCount" required placeholder="Traveller(s)" class="form-control">
+                      <!--  <div class="label" id="psngr"></div> -->
+                        <span class="fas fa-users text-muted"></span>
+
+                        <div class="btn btn-primary rounded-10 justify-content-center align-items-center text-center p-3" (click)="seeQuery()">Search Flights
+                        </div>
+                    </div>
+                </form>
+        
+            </div>
+            <!--html top second bar ends  here-->
+        </div>
+        <div class="centered head">Flights from source to destination.</div>
+        <div class="container-flights">
+            
+            <div class = "headers">
+                <table>
+                    <tr>
+                        <td class="headerAirlines">Airlines</td>
+                        <td >Timings</td>
+                        <td>Duration</td>
+                        <td> No of stop(s)</td>
+                        <td>Price</td>                        
+                        </tr>
+                </table>
+
+            </div>
+
+            <!--conncetion to api here-->
+            <div class = "row"*ngFor="let flightAvailable of flightsAvailable; let indexOfElement=index;">
+                <table>
+                    <tr>
+                        <table class="nestedtable">
+                            <tr>
+                        <td  class="airlines">{{flightAvailable.airlines}}</td>
+                    </tr>
+                        <tr>
+                            <td class="flight-no">{{flightAvailable.planeNo}}</td></tr>
+                    </table>
+                        <td class="timings">{{flightAvailable.sourceTime}} ----- {{flightAvailable.destinationTime}}</td>
+                        <td>{{flightAvailable.duration}}</td>
+                        <td> {{flightAvailable.stops}} stops</td>
+                        <td>₹{{flightAvailable.price}}</td>
+                        <!-- add below routerLink="../booking"-->
+                        <button type="button" id="{{indexOfElement}}" (click)="bookTicket($event)" class="book-now btn btn-primary rounded-10 justify-content-center px-4 text-center p-2" >Book</button>                                    
+                    </tr>
+                    
+                </table>
+            
+            </div>
+            <!--conncetion to api here
+            <div class = "row"*ngFor = "let number of [1,2,3,4,5]">
+                <table >
+                            <tr>
+                                <table class="nestedtable">
+                                    <tr>
+                                <td  class="airlines">Indigo</td>
+                            </tr>
+                                <tr>
+                                    <td class="flight-no-mul">6E-5753</td>                                    
+                                    <td class="flight-no-mul">,6E-6890</td></tr>
+                        </table>
+                        
+                        <td class="timings">2:50 A.M. ----- 3:00 P.M.</td>
+                        <td>6 Hrs 45 mins</td>
+                        
+                        <td>1 Stop</td>
+                        <td>₹2000</td>
+                        <button type="button" routerLink="../booking" class="book-now btn btn-primary rounded-10 justify-content-center px-4 text-center p-2">Book</button>                                    
+         
+                    </tr>
+                    
+                </table>
+
+            </div>-->
+
+                
+        </div>
+    </div>
+
+</body>
